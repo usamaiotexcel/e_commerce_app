@@ -115,6 +115,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         ),
                         const SizedBox(height: 10),
                         CustomButton(
+                          color: Colors.amber,
                           text: 'Sign Up',
                           onTap: () {
                             if (_signUpFormKey.currentState!.validate()) {
@@ -167,6 +168,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         const SizedBox(height: 10),
                         CustomButton(
                           text: 'Sign In',
+                          color: Colors.amber,
                           onTap: () {
                             if (_signInFormKey.currentState!.validate()) {
                               signInUser();

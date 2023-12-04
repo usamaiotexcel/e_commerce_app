@@ -186,6 +186,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 ),
                 const SizedBox(height: 10),
                 CustomButton(
+                  color: Colors.amber,
                   text: 'Sell',
                   onTap: sellProduct,
                 ),

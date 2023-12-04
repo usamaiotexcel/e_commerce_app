@@ -28,7 +28,7 @@ class AdminServices {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
 
     try {
-      final cloudinary = CloudinaryPublic('denfgaxvg', 'uszbstnu');
+      final cloudinary = CloudinaryPublic('drhqadpjg', 'gne55lla');
       List<String> imageUrls = [];
 
       for (int i = 0; i < images.length; i++) {
@@ -56,6 +56,7 @@ class AdminServices {
         body: product.toJson(),
       );
 
+      // ignore: use_build_context_synchronously
       httpErrorHandle(
         response: res,
         context: context,
@@ -65,12 +66,13 @@ class AdminServices {
         },
       );
     } catch (e) {
+      // ignore: use_build_context_synchronously
       showSnackBar(context, e.toString());
     }
   }
 
   // get all the products
-  Future<List<Product>> fetchAllProducts(BuildContext context) async {
+  Future<List<Product>> fetchAllProducts(context) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     List<Product> productList = [];
     try {
@@ -120,6 +122,7 @@ class AdminServices {
         }),
       );
 
+      // ignore: use_build_context_synchronously
       httpErrorHandle(
         response: res,
         context: context,

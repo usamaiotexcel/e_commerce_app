@@ -55,7 +55,7 @@ class _AdminScreenState extends State<AdminScreen> {
               const Text(
                 'Admin',
                 style: TextStyle(
-                  color: Colors.black,
+                  color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
               )

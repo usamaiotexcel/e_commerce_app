@@ -56,10 +56,12 @@ class _PostsScreenState extends State<PostsScreen> {
                 final productData = products![index];
                 return Column(
                   children: [
-                    SizedBox(
-                      height: 140,
-                      child: SingleProduct(
-                        image: productData.images[0],
+                    Expanded(
+                      child: SizedBox(
+                        // height: 180,
+                        child: SingleProduct(
+                          image: productData.images[0],
+                        ),
                       ),
                     ),
                     Row(

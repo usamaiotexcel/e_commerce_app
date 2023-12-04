@@ -38,10 +38,14 @@ class AccountScreen extends StatelessWidget {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(right: 15),
-                      child: Icon(Icons.notifications_outlined),
+                      child: Icon(
+                        Icons.notifications_outlined,
+                        color: Colors.white,
+                      ),
                     ),
                     Icon(
                       Icons.search,
+                      color: Colors.white,
                     ),
                   ],
                 ),
@@ -50,8 +54,8 @@ class AccountScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: Column(
-        children: const [
+      body: const Column(
+        children: [
           BelowAppBar(),
           SizedBox(height: 10),
           TopButtons(),
