@@ -1,8 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:e_commerce_app/features/product_details/screens/razorpayScreen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 import '../../../common/widgets/custom_button.dart';
 import '../../../common/widgets/stars.dart';
@@ -11,6 +13,7 @@ import '../../../models/product.dart';
 import '../../../providers/user_provider.dart';
 import '../../search/screens/search_screen.dart';
 import '../services/product_details_services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   static const String routeName = '/product-details';
@@ -29,10 +32,15 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       ProductDetailsServices();
   double avgRating = 0;
   double myRating = 0;
+  Razorpay? _razorpay;
 
   @override
   void initState() {
     super.initState();
+    _razorpay = Razorpay();
+    _razorpay?.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+    _razorpay?.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+    _razorpay?.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
     double totalRating = 0;
     for (int i = 0; i < widget.product.rating!.length; i++) {
       totalRating += widget.product.rating![i].rating;
@@ -47,6 +55,48 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     }
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    _razorpay?.clear();
+  }
+
+  void openChecF() async {
+    var options = {
+      'key': 'rzp_test_k2g2Y9L9TH22B0',
+      'amount': "${widget.product.price * 100}",
+      'name': 'usama',
+      'description': 'Payment',
+      'prefill': {'contact': '9423204038', 'email': 'usamaiotexcel@gmail.com'},
+      'external': {
+        'wallets': ['paytm']
+      }
+    };
+
+    try {
+      _razorpay?.open(options);
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
+  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+    Fluttertoast.showToast(
+        msg: "SUCCESS PAYMENT: ${response.paymentId}", timeInSecForIosWeb: 4);
+  }
+
+  void _handlePaymentError(PaymentFailureResponse response) {
+    Fluttertoast.showToast(
+        msg: "ERROR HERE: ${response.code} - ${response.message}",
+        timeInSecForIosWeb: 4);
+  }
+
+  void _handleExternalWallet(ExternalWalletResponse response) {
+    Fluttertoast.showToast(
+        msg: "EXTERNAL_WALLET IS : ${response.walletName}",
+        timeInSecForIosWeb: 4);
+  }
+
   void navigateToSearchScreen(String query) {
     Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
   }
@@ -56,6 +106,15 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       context: context,
       product: widget.product,
     );
+  }
+
+  void razorPayScreen() {
+    Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+      return razorpay(
+        price: widget.product.price,
+        productName: widget.product.name,
+      );
+    }));
   }
 
   @override
@@ -220,7 +279,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               child: CustomButton(
                 color: Colors.amber,
                 text: 'Buy Now',
-                onTap: () {},
+                onTap: openChecF,
               ),
             ),
             const SizedBox(height: 10),
