@@ -58,14 +58,14 @@ class _DealOfDayState extends State<DealOfDay> {
                       height: 235,
                       fit: BoxFit.fitHeight,
                     ),
-                    Container(
-                      padding: const EdgeInsets.only(left: 15),
-                      alignment: Alignment.topLeft,
-                      child: const Text(
-                        '\₹100',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ),
+                    // Container(
+                    //   padding: const EdgeInsets.only(left: 15),
+                    //   alignment: Alignment.topLeft,
+                    //   child: const Text(
+                    //     '\₹100',
+                    //     style: TextStyle(fontSize: 18),
+                    //   ),
+                    // ),
                     Container(
                       alignment: Alignment.topLeft,
                       padding:
@@ -74,6 +74,7 @@ class _DealOfDayState extends State<DealOfDay> {
                         'Usama',
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
                     SingleChildScrollView(
