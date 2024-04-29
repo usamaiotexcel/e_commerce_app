@@ -32,9 +32,9 @@ class _razorpayState extends State<razorpay> {
     var options = {
       'key': 'rzp_test_k2g2Y9L9TH22B0',
       'amount': "${widget.price * 100}",
-      'name': 'usama',
+      'name': 'Prashant',
       'description': 'Payment',
-      'prefill': {'contact': '9423204038', 'email': 'usamaiotexcel@gmail.com'},
+      'prefill': {'contact': '9423204038', 'email': 'Prashant@gmail.com'},
       'external': {
         'wallets': ['paytm']
       }
